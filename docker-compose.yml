@@ -2,7 +2,9 @@
 
 services:
   miniproxy:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: rm-web-miniproxy:local
     container_name: miniproxy
     restart: unless-stopped
