@@ -1,0 +1,44 @@
+﻿version: "3.9"
+
+services:
+  miniproxy:
+    build: .
+    image: rm-web-miniproxy:local
+    container_name: miniproxy
+    restart: unless-stopped
+
+    ports:
+      - "80:80"
+      - "443:443"
+
+    volumes:
+      - ~/secrets/miniproxy/cert.pfx:/app/cert.pfx:ro
+      - ~/secrets/miniproxy/cert-pass.txt:/app/cert-pass.txt:ro
+      - ~/secrets/miniproxy/appsettings.json:/app/appsettings.json:ro
+
+    environment:
+      # =====================
+      # .NET runtime perf
+      # =====================
+      DOTNET_gcServer: "1"
+      DOTNET_EnableDiagnostics: "0"
+      DOTNET_ThreadPool_MinThreads: "200"
+
+      # Optional memory guard (adjust to VM size)
+      # DOTNET_GCHeapHardLimit: "1073741824"
+
+      # =====================
+      # Kestrel limits
+      # =====================
+      ASPNETCORE_Kestrel__Limits__MaxConcurrentConnections: "10000"
+      ASPNETCORE_Kestrel__Limits__MaxConcurrentUpgradedConnections: "1000"
+
+      ASPNETCORE_ENVIRONMENT: Production
+
+    # Container-level tuning
+    read_only: true
+    tmpfs:
+      - /tmp
+
+    # Optional (Linux VM only, removes NAT overhead)
+    network_mode: host
