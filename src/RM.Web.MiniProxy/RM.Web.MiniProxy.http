@@ -1,0 +1,6 @@
+@RM.Web.MiniProxy_HostAddress = http://localhost:5123
+
+GET {{RM.Web.MiniProxy_HostAddress}}/?url=https://google.com&user_agent=cUrl&parse_regex=\d{2}
+Accept: application/json
+
+###
