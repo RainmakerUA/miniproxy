@@ -2,6 +2,8 @@
   <Folder Name="/Solution/">
     <File Path=".dockerignore" />
     <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
+    <File Path="Dockerfile" />
     <File Path="LICENSE" />
     <File Path="README.md" />
   </Folder>

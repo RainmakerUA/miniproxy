@@ -1,6 +1,4 @@
-﻿version: "3.9"
-
-services:
+﻿services:
   miniproxy:
     build:
       context: .
@@ -10,8 +8,8 @@ services:
     restart: unless-stopped
 
     ports:
-      - "80:80"
-      - "443:443"
+      - "80:8080"
+      - "443:8443"
 
     volumes:
       - ~/secrets/miniproxy/cert.pfx:/app/cert.pfx:ro
@@ -25,9 +23,6 @@ services:
       DOTNET_gcServer: "1"
       DOTNET_EnableDiagnostics: "0"
       DOTNET_ThreadPool_MinThreads: "200"
-
-      # Optional memory guard (adjust to VM size)
-      # DOTNET_GCHeapHardLimit: "1073741824"
 
       # =====================
       # Kestrel limits
@@ -43,4 +38,4 @@ services:
       - /tmp
 
     # Optional (Linux VM only, removes NAT overhead)
-    network_mode: host
+    #network_mode: host

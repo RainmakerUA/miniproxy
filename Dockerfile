@@ -40,15 +40,15 @@ RUN dotnet publish RM.Web.MiniProxy.csproj \
 FROM mcr.microsoft.com/dotnet/runtime-deps:10.0-noble AS final
 
 WORKDIR /app
-EXPOSE 80 443
+EXPOSE 8080 8443
 
-# URLs only
-ENV ASPNETCORE_URLS=http://+:80;https://+:443
-ENV ASPNETCORE_HTTPS_PORT=443
+# Serving ports
+ENV HTTP_PORT=8080
+ENV HTTPS_PORT=8443
 
 # TLS cert paths (bind-mounted at runtime)
-ENV ASPNETCORE_Kestrel__Certificates__Default__Path=/app/cert.pfx
-ENV ASPNETCORE_Kestrel__Certificates__Default__PasswordFile=/app/cert-pass.txt
+ENV HTTPS_CERT_PATH=/app/cert.pfx
+ENV HTTPS_CERT_PWD_FILE=/app/cert-pass.txt
 
 # Copy native publish output
 COPY --from=build /app/publish ./

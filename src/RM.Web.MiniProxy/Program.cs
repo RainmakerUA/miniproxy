@@ -1,6 +1,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using RM.Web.MiniProxy;
 using RM.Web.MiniProxy.Client;
 
 var builder = WebApplication.CreateSlimBuilder(args);
@@ -15,6 +16,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 	jsonOptions.TypeInfoResolverChain.Insert(0, AppJsonSerializerContext.Default);
 });
 
+builder.UseListeningPorts();
 builder.AddClient();
 
 var app = builder.Build();

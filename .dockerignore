@@ -13,6 +13,7 @@ obj
 
 # Environment / secrets
 .env
+appsettings.*.json
 
 # Docs (optional but recommended)
 README.md
